@@ -1,0 +1,101 @@
+
+/* Glass card effect */
+.card{
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border-radius:15px;
+    color:white;
+}
+/* Glass Effect Form Card */
+
+.glass-form{
+    background: rgba(255, 255, 255, 0.15);   /* transparent white */
+    backdrop-filter: blur(12px);             /* glass blur effect */
+    -webkit-backdrop-filter: blur(12px);
+    
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.2);
+    
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    
+    padding: 30px;
+    color: white;
+}
+
+/* Input fields style */
+
+.glass-form input{
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+}
+
+.glass-form input::placeholder{
+    color: #ddd;
+}
+
+/* Button style */
+
+.glass-form button{
+    border-radius: 10px;
+}
+body{
+    margin:0;
+    height:100vh;
+    background: linear-gradient(-45deg, 
+        /* #95c0ef, */
+        #aa8be7,
+        #7a18e2,
+        #7f19be
+    );
+    background-size: 400% 400%;
+    animation: gradientBG 14s ease infinite;
+}
+
+/* Smooth animation */
+@keyframes gradientBG {
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+/* .fitness-text{
+    font-size:30px;
+    font-weight:600;
+    color:#ffffff;
+    letter-spacing:1px;
+    text-shadow:1px 1px 6px rgba(0,0,0,0.2);
+}
+.trainer-heading{
+    font-size:36px;
+    font-weight:700;
+    color:#1500d1;
+    margin-top:50px;
+    margin-bottom:30px;
+    text-align:center;
+    position:relative;
+    display:inline-block;
+} */
+ .fitness-text{
+    font-size:20px;
+    font-weight:bold;
+    color:#fac000;
+    margin-bottom:10px;
+}
+
+.trainer-heading{
+    font-size:30px;
+    font-weight:700;
+    color:#0b0089;
+    margin-top:10px;
+    margin-bottom:20px;
+}

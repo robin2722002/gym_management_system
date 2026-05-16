@@ -1,0 +1,167 @@
+<head><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+.carousel-item {
+    transition: transform 0.8s ease-in-out;
+}
+
+.card {
+    border: none;
+    
+}
+</style>
+<style>
+.card {
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+.custom-navbar{
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script>
+setTimeout(function(){
+    let alerts = document.querySelectorAll('.alert');
+    alerts.forEach(a => a.style.display = 'none');
+},3000);
+</script>
+</head>
+<body>
+
+<nav class="navbar navbar-dark position-relative custom-navbar">
+    <div class="container-fluid">
+
+        <h1 class="position-absolute start-50 translate-middle-x m-0"
+        style="color:#00407f; font-size:40px; font-weight:bold; text-shadow:2px 2px 10px rgb(239, 238, 238);">
+            Welcome {{ request.user.name }} 💪
+        </h1>
+
+        <!-- Dropdown Menu -->
+        <div class="ms-auto dropdown">
+
+            <button class="btn btn-warning dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown">
+                MENU
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+
+                <li>
+                    <a class="dropdown-item" href="{% url 'profile' %}">
+                        Profile
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item" href="{% url 'workout_plans' %}">
+                        Workout Plans
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item text-danger" href="{% url 'logout' %}">
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+{% if messages %}
+    {% for message in messages %}
+
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+{% endif %}
+<div class="container text-center mt-5">
+
+    <p class="fitness-text">Start your fitness journey today.</p>
+
+    <h3 class="trainer-heading">Available Trainers</h3> 
+    <div id="trainerCarousel" class="carousel slide" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+
+        {% for trainer in trainers %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            
+            <div class="d-flex justify-content-center">
+                <div class="card text-center shadow-lg bg-light text-dark"  style="width:20rem;  border-radius:15px;">
+
+                    {% if trainer.user.profile_photo %}
+                    <img src="{{ trainer.user.profile_photo.url }}"
+                         class="card-img-top"
+                         style="height:300px; object-fit:contain;">
+                    {% endif %}
+
+                    <div class="card-body">
+                        <h4><b>{{ trainer.user.name }}</b></h4>
+                        <h6><p><b>Phone:</b> {{ trainer.user.phone }}</p></h6>
+                        <h6><p><b>Email:</b> {{ trainer.user.email }}</p></h6>
+                        <h6><p><b>Experience:</b> {{ trainer.experience }} years</p></h6>
+                        {% if booking %}
+    
+    {% if booking.trainer.id == trainer.user.id %}
+    
+        <a href="{% url 'cancel_booking' %}" class="btn btn-danger mt-2">
+            Cancel Booking
+        </a>
+
+    {% else %}
+
+        <button class="btn btn-secondary mt-2" disabled>
+            Already Booked
+        </button>
+
+    {% endif %}
+
+{% else %}
+
+<a href="{% url 'book_trainer' trainer.user.id %}" class="btn btn-success mt-2">
+    Book Trainer
+</a>
+
+{% endif %}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    
+    <button class="carousel-control-prev" type="button" data-bs-target="#trainerCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+
+    
+    <button class="carousel-control-next" type="button" data-bs-target="#trainerCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+
+</div> 
+
+
+
+</div>
+
+</body>
